@@ -1,0 +1,43 @@
+syntax="proto2";
+package realtime_rec;
+
+import "behavior.proto";
+
+/*
+message UserProfile
+{
+    optional string  user_id                  = 1;
+    optional uint32  gender                   = 2;
+    optional uint32  age                      = 3;
+    optional OsType  os_type                  = 4;
+    optional string  location                 = 5;
+    optional int32  fans                      = 6;//粉丝数量
+    repeated Event follow_user                = 7;//关注的用户
+    repeated Event groups                     = 8;//参与的群,X的群组
+    optional uint32 life_time                 = 9;//生命周期
+    optional uint32 app_time                  = 10;//累计app使用时长
+    optional uint32 status                    = 11;//连载状态
+    //repeated Preference preference            = 6;//用户感兴趣的分类、标签,相同的DATATYPE放到一起,novel/comic/video/ebook/书单/帖子/话题
+    optional Preference pre_novel             = 12;
+    optional Preference pre_comic             = 13;
+    optional Preference pre_video             = 14;
+    optional Preference pre_book_list         = 15;
+    optional Preference pre_post              = 16;
+    optional Preference pre_all               = 100;
+}
+*/
+
+
+message UserProfile
+{
+    //1. 行为信息
+    optional BaseInfo base_info               = 1;
+    //2. 推断信息
+    optional Preference pre_novel             = 2;
+    optional Preference pre_comic             = 3;
+    optional Preference pre_video             = 4;
+    optional Preference pre_book_list         = 5;
+    optional Preference pre_post              = 6;
+    optional Preference pre_all               = 7;
+}
+

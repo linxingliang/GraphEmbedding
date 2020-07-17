@@ -7,7 +7,7 @@
 
 import numpy as np
 
-from ge.classify import read_node_label, Classifier
+from ge.classify import read_node_label, Classifier, read_node_label_2
 from ge import LINE
 from sklearn.linear_model import LogisticRegression
 
@@ -17,7 +17,8 @@ from sklearn.manifold import TSNE
 
 
 def evaluate_embeddings(embeddings):
-    X, Y = read_node_label('../data/wiki/wiki_labels.txt')
+    X, Y = read_node_label_2('../data/dream/label')
+    print(set(Y))
     tr_frac = 0.8
     print("Training classifier using {:.2f}% nodes...".format(
         tr_frac * 100))
@@ -26,7 +27,7 @@ def evaluate_embeddings(embeddings):
 
 
 def plot_embeddings(embeddings,):
-    X, Y = read_node_label('../data/wiki/wiki_labels.txt')
+    X, Y = read_node_label_2('../data/dream/label')
 
     emb_list = []
     for k in X:
@@ -48,7 +49,7 @@ def plot_embeddings(embeddings,):
 
 
 if __name__ == "__main__":
-    G = nx.read_edgelist('../data/wiki/Wiki_edgelist.txt',
+    G = nx.read_edgelist('../data/dream/edges',
                          create_using=nx.DiGraph(), nodetype=None, data=[('weight', int)])
 
     model = LINE(G, embedding_size=128, order='second')
@@ -57,3 +58,6 @@ if __name__ == "__main__":
 
     evaluate_embeddings(embeddings)
     plot_embeddings(embeddings)
+
+    # {'micro': 0.7345326897762177, 'macro': 0.35328517084474353, 'samples': 0.7075782537067545,
+    # 'weighted': 0.7078743563176096, 'acc': 0.6128500823723229}

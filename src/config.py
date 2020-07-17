@@ -12,6 +12,7 @@ parser.add_argument("--online_sql_h", default='coredb-cluster.cluster-cxs17h1rop
                     type=str, help="线上mysql host")
 parser.add_argument("--online_sql_u", default='analyzer', type=str, help="线上mysql user")
 parser.add_argument("--online_sql_p", default='P@ss4Aanlyze', type=str, help="线上mysql password")
+parser.add_argument("--online_sql_d", default='xiaoshuo', type=str, help="线上mysql password")
 
 parser.add_argument('--disk_host', default='172.31.61.42', type=str, help='dreame硬盘文件系统访问地址')
 parser.add_argument('--disk_port', default=4102, type=int, help='dreame硬盘文件系统访问端口')

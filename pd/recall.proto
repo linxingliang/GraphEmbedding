@@ -1,0 +1,51 @@
+syntax = "proto2";
+package realtime_rec;
+
+import "behavior.proto";
+/*
+enum DATATYPE
+{
+    DATA_TYPE_NOVEL        = 0;//novel
+    DATA_TYPE_COMIC        = 1;//comic
+    DATA_TYPE_VIDEO        = 2;//video
+    DATA_TYPE_EBOOK        = 3;//ebook
+    DATA_TYPE_LIST         = 4;//X书单、M书单
+    DATA_TYPE_POST         = 5;//X帖子、A帖子
+    DATA_TYPE_TOPIC        = 6;//A话题(圈子)
+}
+*/
+enum RECALLTYPE
+{
+    RECALL_TYPE_ALL         = 0;//汇总之后的结果
+    RECALL_TYPE_CATEGORY    = 1;//分类
+    RECALL_TYPE_NEW         = 2;//新内容
+    RECALL_TYPE_HOT         = 3;//热门
+    RECALL_TYPE_ICF         = 4;//ICF
+    RECALL_TYPE_UCF         = 5;//UCF
+}
+message RecallEvent
+{
+    optional RECALLTYPE recall_type = 1;//记录召回类型
+    repeated uint64  id  = 2;//书籍id、榜单id
+    //optional string cat_name = 3//记录分类名
+    //optional uint32 cat_id = 4 //记录分类ID
+}
+
+
+message RecallList
+{
+    optional DATATYPE data_type = 1;
+    repeated RecallEvent recall_event    = 2;//书籍id、榜单id
+}
+
+
+message UserRecallList
+{
+    optional string user_id               = 1;
+    optional RecallList novel                   = 2;
+    optional RecallList comic                   = 3;
+    optional RecallList video                   = 4;
+    optional RecallList book_list               = 5;
+    optional RecallList post                    = 6;
+    optional RecallList all                     = 7;
+}

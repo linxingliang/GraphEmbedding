@@ -1,0 +1,85 @@
+syntax = "proto2";
+package realtime_rec;
+
+
+enum OsType
+{
+    Android     = 0;
+    IOS         = 1;
+}
+
+message Interest
+{
+    optional uint64 id         = 1;
+    optional int32  score      = 2;
+    optional string name       = 3;
+}
+message Preference
+{
+    repeated Interest category         = 2;
+    repeated Interest tag              = 3;
+    optional uint32 status             = 4;
+    optional uint32 gender             = 5;
+}
+
+//跟产品内容无关的
+message BaseInfo
+{
+    optional string user_id              = 1;
+    optional uint64 qid                  = 2;
+    optional string device_id            = 3;//优先使用DeviceId，其次是userKey
+    optional string channel              = 4;
+    optional uint32 create_time          = 5;
+    optional uint32 update_time          = 6;
+    optional OsType os_type              = 7;
+    optional uint32 gender               = 8;
+    optional uint32 age                  = 9;//日志中暂无，20200706
+    optional string ip                   = 10;//日志中暂无，20200706
+    optional uint32 mcc                  = 11;//移动国家码MCC
+    optional string location             = 12;//城市或者省份,日志中暂无，20200706
+    repeated Preference like             = 13;//新用户选择的阅读偏好，日志中暂无，20200706
+    repeated Preference dislike          = 14;//用户反馈(不喜欢推荐的：分类、标签、性别、书籍、书单、帖子、话题等等)，日志中暂无，20200706
+    optional uint32 app_time             = 15;//app累计使用时长
+    repeated Event app_time_daily        = 16;//活跃当天app使用时长 time,read_duration #20200512 modified to optional
+    optional uint32 coin_remain          = 17;//金币余额
+    optional uint32 coupon_remain        = 18;//金券余额
+    optional uint32 last_profile_time    = 19;//最近一个更新用户画像的时间
+}
+
+message Event
+{
+    optional uint64  id                = 1;//书籍id、榜单id
+    optional string  query             = 2;//搜索query
+    optional uint32  time              = 3;
+    optional uint32  chapter_num       = 4;//阅读章节数
+    optional uint32  chapter_index     = 5;//阅读到哪一章
+    optional uint32  read_duration     = 6;//阅读时长
+    optional string  cat_name          = 7;
+    optional string  tag_name          = 8;
+    optional uint32  status            = 10;
+    optional uint32  order             = 11;
+    optional uint32  gender            = 12;
+    optional uint32  amount            = 13;//消费、充值金额
+    optional string  show_seat         = 14;//曝光位置
+    optional uint32  start_time        = 15;//开始阅读时间
+    optional uint32  last_time         = 16;//最后一次阅读时间
+    optional uint32  follow_action     = 17;//1=收藏，2=取消收藏
+}
+
+message Behavior
+{
+    repeated Event impression        = 1;//id,time,show_seat
+    repeated Event click             = 2;//id,time
+    repeated Event read              = 3;//id,time,chapter_num,chapter_index,read_duration
+    repeated Event collect           = 4;//id,time,follow_action
+    repeated Event consume           = 5;//消费，id,amount,start_time,last_time
+    optional Event recharge          = 6;//充值，time, amouunt
+    repeated Event search            = 7;//id(默认0),query,time
+    repeated Event category_search   = 8;//id(cat_id),(cat_name,tag_name,status,order,这几个字段展示
+}
+
+message UserBehavior
+{
+    optional BaseInfo base_info               = 1;
+    optional Behavior behavior                = 2;
+}

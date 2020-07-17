@@ -2,6 +2,7 @@ from __future__ import print_function
 
 
 import numpy
+import pickle
 from sklearn.metrics import f1_score, accuracy_score
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.preprocessing import MultiLabelBinarizer
@@ -45,7 +46,6 @@ class Classifier(object):
         print('-------------------')
         print(results)
         return results
-        print('-------------------')
 
     def predict(self, X, top_k_list):
         X_ = numpy.asarray([self.embeddings[x] for x in X])
@@ -83,3 +83,8 @@ def read_node_label(filename, skip_head=False):
         Y.append(vec[1:])
     fin.close()
     return X, Y
+
+def read_node_label_2(filename):
+    with open(filename, 'rb') as f:
+        data = pickle.load(f)
+    return data[0], data[1]

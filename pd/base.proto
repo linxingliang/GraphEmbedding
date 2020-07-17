@@ -1,0 +1,35 @@
+syntax="proto2";
+message _64ByteList
+{
+    repeated _64ByteItem items = 1;
+}
+message _64ByteItem
+{
+    optional uint64 id = 1;
+    optional DataType data_type = 2;
+}
+message _32ByteList
+{
+    repeated _32ByteItem items = 1;
+}
+message _32ByteItem
+{
+    optional uint32 id = 1;
+    optional DataType data_type = 2;
+}
+message _BaseListInfo
+{
+    repeated uint64 ids = 1;
+    optional uint64 gid = 2;
+    optional string name = 3;
+    optional string author = 4;
+    optional string cover_url = 5;
+}
+enum DataType {
+    DATA_TYPE_NOVEL = 0;
+    DATA_TYPE_COMIC = 1;
+    DATA_TYPE_VIDEO = 2;
+    DATA_TYPE_GROUP = 3;
+    DATA_TYPE_EBOOK = 4;
+    DATA_TYPE_ALL = 10; 
+}

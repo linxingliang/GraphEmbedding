@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+enum StatusCode {
+    StatusCodeSuccess         = 0;
+    StatusCodeInvalidRequest  = 1;
+    StatusCodeBshelfFail      = 2;
+    StatusCodeBshelfRedisErr  = 3;
+}
+
+enum dataSource{
+    UnknownSource   = 0;
+    XST_UserBehavior= 12;
+    XST_UserProfile = 13;
+    XST_Recall      = 14;
+    HHM_UserBehavior= 15;
+    HHM_UserProfile = 16;
+    HHM_Recall      = 17;
+
+    Abroad_UserBehavior= 19;
+    Abroad_UserProfile = 20;
+    Abroad_Recall      = 21;
+}
+
+enum RealTimeRecOp
+{
+    RealTimeRecUnkonw       = 0;
+    RealTimeRecGetData      = 1;
+    RealTimeRecSetData      = 2;
+}
+
+message RealTimeRequest
+{
+    string        key  = 1;    // 实时推荐数据key
+    bytes        value= 2;    // 实时推荐数据
+    dataSource    source_type = 3;   // 实时推荐数据类型
+    RealTimeRecOp operate   = 4;   // 操作类型
+}
+
+message RealTimeResponse
+{
+    StatusCode   code       = 1;
+    string       message    = 2;
+    bytes value  = 3;    // 实时推荐数据
+}
+
+
+
+///---------------------test------------------
+message test_data
+{
+    int32 id = 1;
+    string str_id = 2;
+    string str_data = 3;
+}
+message base_info
+{
+    string name = 1;
+    int32 gender =2;
+}
+message user
+{
+    repeated test_data test1 = 1;
+    base_info base = 2;
+    repeated test_data test2 = 3;
+}
