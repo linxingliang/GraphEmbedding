@@ -66,7 +66,7 @@ def create_model(numNodes, embedding_size, order='second'):
     return model, {'first': first_emb, 'second': second_emb}
 
 
-class LINE:
+class LINE(object):
     def __init__(self, graph, embedding_size=8, negative_ratio=5, order='second',):
         """
 
